@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../../store/authSlice';
+import DarkModeToggle from './DarkModeToggle';
 
 const Navbar = () => {
   const { isAuthenticated, user, subscription } = useSelector((state) => state.auth);
@@ -70,7 +71,7 @@ const Navbar = () => {
   };
   
   return (
-    <nav className="bg-dark text-white shadow-md sticky top-0 z-50">
+    <nav className="bg-dark dark:bg-gray-900 text-white shadow-md sticky top-0 z-50 transition-colors duration-200">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center py-3">
           {/* Logo */}
@@ -82,7 +83,8 @@ const Navbar = () => {
           </Link>
           
           {/* Mobile menu button */}
-          <div className="md:hidden">
+          <div className="md:hidden flex items-center space-x-3">
+            <DarkModeToggle />
             <button
               type="button"
               className="text-gray-200 hover:text-white focus:outline-none"
@@ -120,6 +122,9 @@ const Navbar = () => {
                   New Analysis
                 </Link>
                 
+                {/* Dark Mode Toggle */}
+                <DarkModeToggle />
+                
                 {/* Notifications dropdown */}
                 <div className="relative" ref={notificationsRef}>
                   <button
@@ -131,24 +136,24 @@ const Navbar = () => {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
                     </svg>
                     {notifications.some(n => !n.read) && (
-                      <span className="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-400 ring-2 ring-dark"></span>
+                      <span className="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-400 ring-2 ring-dark dark:ring-gray-900"></span>
                     )}
                   </button>
                   
                   {notificationsOpen && (
-                    <div className="origin-top-right absolute right-0 mt-2 w-80 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
+                    <div className="origin-top-right absolute right-0 mt-2 w-80 rounded-md shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
                       <div className="py-2">
-                        <div className="px-4 py-2 border-b border-gray-100">
-                          <h3 className="text-sm font-medium text-gray-900">Notifications</h3>
+                        <div className="px-4 py-2 border-b border-gray-100 dark:border-gray-700">
+                          <h3 className="text-sm font-medium text-gray-900 dark:text-gray-100">Notifications</h3>
                         </div>
                         
                         <div className="max-h-60 overflow-y-auto">
                           {notifications.length > 0 ? (
-                            <div className="divide-y divide-gray-100">
+                            <div className="divide-y divide-gray-100 dark:divide-gray-700">
                               {notifications.map((notification) => (
                                 <div 
                                   key={notification.id}
-                                  className={`px-4 py-3 hover:bg-gray-50 ${!notification.read ? 'bg-blue-50' : ''}`}
+                                  className={`px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700 ${!notification.read ? 'bg-blue-50 dark:bg-blue-900/30' : ''}`}
                                 >
                                   <div className="flex items-start">
                                     {notification.type === 'info' && (
@@ -173,21 +178,21 @@ const Navbar = () => {
                                       </div>
                                     )}
                                     <div className="flex-1">
-                                      <p className="text-sm text-gray-900">{notification.message}</p>
-                                      <p className="mt-1 text-xs text-gray-500">{notification.time}</p>
+                                      <p className="text-sm text-gray-900 dark:text-gray-100">{notification.message}</p>
+                                      <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">{notification.time}</p>
                                     </div>
                                   </div>
                                 </div>
                               ))}
                             </div>
                           ) : (
-                            <div className="px-4 py-6 text-center text-sm text-gray-500">
+                            <div className="px-4 py-6 text-center text-sm text-gray-500 dark:text-gray-400">
                               No notifications yet
                             </div>
                           )}
                         </div>
                         
-                        <div className="border-t border-gray-100 px-4 py-2">
+                        <div className="border-t border-gray-100 dark:border-gray-700 px-4 py-2">
                           <button className="text-xs text-primary hover:text-blue-700 font-medium">
                             Mark all as read
                           </button>
@@ -222,15 +227,15 @@ const Navbar = () => {
                   </button>
                   
                   {accountMenuOpen && (
-                    <div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
-                      <div className="px-4 py-3 border-b border-gray-100">
-                        <p className="text-sm font-medium text-gray-900 truncate">{user?.name}</p>
-                        <p className="text-xs text-gray-500 truncate">{user?.email}</p>
+                    <div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
+                      <div className="px-4 py-3 border-b border-gray-100 dark:border-gray-700">
+                        <p className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">{user?.name}</p>
+                        <p className="text-xs text-gray-500 dark:text-gray-400 truncate">{user?.email}</p>
                       </div>
                       
                       <Link
                         to="/profile"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
                         onClick={() => setAccountMenuOpen(false)}
                       >
                         Your Profile
@@ -238,7 +243,7 @@ const Navbar = () => {
                       
                       <Link
                         to="/subscription"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
                         onClick={() => setAccountMenuOpen(false)}
                       >
                         <div className="flex justify-between items-center">
@@ -251,14 +256,14 @@ const Navbar = () => {
                       
                       <Link
                         to="/settings"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
                         onClick={() => setAccountMenuOpen(false)}
                       >
                         Settings
                       </Link>
                       
                       <button
-                        className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        className="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
                         onClick={() => {
                           setAccountMenuOpen(false);
                           handleLogout();
@@ -288,6 +293,10 @@ const Navbar = () => {
                 >
                   Pricing
                 </Link>
+                
+                {/* Dark Mode Toggle */}
+                <DarkModeToggle />
+                
                 <Link 
                   to="/login" 
                   className="ml-2 px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700 transition"
