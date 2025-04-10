@@ -10,6 +10,7 @@ import DashboardPage from './pages/DashboardPage';
 import AnalysisPage from './pages/AnalysisPage';
 import SubscriptionPage from './pages/SubscriptionPage';
 import ProfilePage from './pages/ProfilePage';
+import ImprovedNavbar from './components/common/ImprovedNavbar';
 
 function App() {
   return (
