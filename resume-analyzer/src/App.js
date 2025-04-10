@@ -5,7 +5,7 @@ import store from './store';
 
 // Context providers
 import { ToastProvider } from './components/contexts/ToastContext';
-import { ThemeProvider } from './components/contexts/ThemeContext';
+ 
 
 // Error handling
 import ErrorBoundary from './components/common/ErrorBoundary';
@@ -30,7 +30,7 @@ function App() {
   return (
     <Provider store={store}>
       <ErrorBoundary>
-        <ThemeProvider>
+        
           <ToastProvider>
             <Router>
               <div className="flex flex-col min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-200">
@@ -105,7 +105,7 @@ function App() {
               </div>
             </Router>
           </ToastProvider>
-        </ThemeProvider>
+    
       </ErrorBoundary>
     </Provider>
   );

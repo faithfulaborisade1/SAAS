@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../../store/authSlice';
-import DarkModeToggle from './DarkModeToggle';
 
 const Navbar = () => {
   const { isAuthenticated, user, subscription } = useSelector((state) => state.auth);
@@ -71,12 +70,12 @@ const Navbar = () => {
   };
   
   return (
-    <nav className="bg-dark dark:bg-gray-900 text-white shadow-md sticky top-0 z-50 transition-colors duration-200">
+    <nav className="bg-blue-600 text-white shadow-md sticky top-0 z-50">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center py-3">
           {/* Logo */}
-          <Link to="/" className="text-2xl font-bold flex items-center">
-            <svg className="w-8 h-8 mr-2 text-primary" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+          <Link to="/" className="text-2xl font-bold flex items-center text-white">
+            <svg className="w-8 h-8 mr-2 text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
               <path fillRule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clipRule="evenodd"></path>
             </svg>
             ResumeAI
@@ -84,10 +83,9 @@ const Navbar = () => {
           
           {/* Mobile menu button */}
           <div className="md:hidden flex items-center space-x-3">
-            <DarkModeToggle />
             <button
               type="button"
-              className="text-gray-200 hover:text-white focus:outline-none"
+              className="text-white hover:text-gray-200 focus:outline-none"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
               <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -107,53 +105,50 @@ const Navbar = () => {
               <>
                 <Link 
                   to="/dashboard" 
-                  className={`px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700 transition ${
-                    isActive('/dashboard') ? 'bg-gray-700' : ''
+                  className={`px-3 py-2 rounded-md text-sm font-medium text-white hover:bg-blue-500 transition ${
+                    isActive('/dashboard') ? 'bg-blue-700' : ''
                   }`}
                 >
                   Dashboard
                 </Link>
                 <Link 
                   to="/analysis" 
-                  className={`px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700 transition ${
-                    isActive('/analysis') ? 'bg-gray-700' : ''
+                  className={`px-3 py-2 rounded-md text-sm font-medium text-white hover:bg-blue-500 transition ${
+                    isActive('/analysis') ? 'bg-blue-700' : ''
                   }`}
                 >
                   New Analysis
                 </Link>
                 
-                {/* Dark Mode Toggle */}
-                <DarkModeToggle />
-                
                 {/* Notifications dropdown */}
                 <div className="relative" ref={notificationsRef}>
                   <button
                     type="button"
-                    className="relative p-1 rounded-full text-gray-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+                    className="relative p-1 rounded-full text-white hover:text-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-blue-600 focus:ring-white"
                     onClick={() => setNotificationsOpen(!notificationsOpen)}
                   >
                     <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
                     </svg>
                     {notifications.some(n => !n.read) && (
-                      <span className="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-400 ring-2 ring-dark dark:ring-gray-900"></span>
+                      <span className="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-400 ring-2 ring-blue-600"></span>
                     )}
                   </button>
                   
                   {notificationsOpen && (
-                    <div className="origin-top-right absolute right-0 mt-2 w-80 rounded-md shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
+                    <div className="origin-top-right absolute right-0 mt-2 w-80 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
                       <div className="py-2">
-                        <div className="px-4 py-2 border-b border-gray-100 dark:border-gray-700">
-                          <h3 className="text-sm font-medium text-gray-900 dark:text-gray-100">Notifications</h3>
+                        <div className="px-4 py-2 border-b border-gray-100">
+                          <h3 className="text-sm font-medium text-gray-900">Notifications</h3>
                         </div>
                         
                         <div className="max-h-60 overflow-y-auto">
                           {notifications.length > 0 ? (
-                            <div className="divide-y divide-gray-100 dark:divide-gray-700">
+                            <div className="divide-y divide-gray-100">
                               {notifications.map((notification) => (
                                 <div 
                                   key={notification.id}
-                                  className={`px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700 ${!notification.read ? 'bg-blue-50 dark:bg-blue-900/30' : ''}`}
+                                  className={`px-4 py-3 hover:bg-gray-50 ${!notification.read ? 'bg-blue-50' : ''}`}
                                 >
                                   <div className="flex items-start">
                                     {notification.type === 'info' && (
@@ -178,25 +173,25 @@ const Navbar = () => {
                                       </div>
                                     )}
                                     <div className="flex-1">
-                                      <p className="text-sm text-gray-900 dark:text-gray-100">{notification.message}</p>
-                                      <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">{notification.time}</p>
+                                      <p className="text-sm text-gray-900">{notification.message}</p>
+                                      <p className="mt-1 text-xs text-gray-500">{notification.time}</p>
                                     </div>
                                   </div>
                                 </div>
                               ))}
                             </div>
                           ) : (
-                            <div className="px-4 py-6 text-center text-sm text-gray-500 dark:text-gray-400">
+                            <div className="px-4 py-6 text-center text-sm text-gray-500">
                               No notifications yet
                             </div>
                           )}
                         </div>
                         
-                        <div className="border-t border-gray-100 dark:border-gray-700 px-4 py-2">
-                          <button className="text-xs text-primary hover:text-blue-700 font-medium">
+                        <div className="border-t border-gray-100 px-4 py-2">
+                          <button className="text-xs text-blue-600 hover:text-blue-700 font-medium">
                             Mark all as read
                           </button>
-                          <button className="text-xs text-primary hover:text-blue-700 font-medium ml-4">
+                          <button className="text-xs text-blue-600 hover:text-blue-700 font-medium ml-4">
                             View all
                           </button>
                         </div>
@@ -209,7 +204,7 @@ const Navbar = () => {
                 <div className="relative ml-3" ref={accountMenuRef}>
                   <button
                     type="button"
-                    className="flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+                    className="flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-blue-600 focus:ring-white"
                     onClick={() => setAccountMenuOpen(!accountMenuOpen)}
                   >
                     <span className="sr-only">Open user menu</span>
@@ -220,22 +215,22 @@ const Navbar = () => {
                         alt={user.name}
                       />
                     ) : (
-                      <div className="h-8 w-8 rounded-full bg-gray-500 flex items-center justify-center text-white">
+                      <div className="h-8 w-8 rounded-full bg-blue-400 flex items-center justify-center text-white">
                         {user?.name?.charAt(0) || 'U'}
                       </div>
                     )}
                   </button>
                   
                   {accountMenuOpen && (
-                    <div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
-                      <div className="px-4 py-3 border-b border-gray-100 dark:border-gray-700">
-                        <p className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">{user?.name}</p>
-                        <p className="text-xs text-gray-500 dark:text-gray-400 truncate">{user?.email}</p>
+                    <div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
+                      <div className="px-4 py-3 border-b border-gray-100">
+                        <p className="text-sm font-medium text-gray-900 truncate">{user?.name}</p>
+                        <p className="text-xs text-gray-500 truncate">{user?.email}</p>
                       </div>
                       
                       <Link
                         to="/profile"
-                        className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                         onClick={() => setAccountMenuOpen(false)}
                       >
                         Your Profile
@@ -243,12 +238,12 @@ const Navbar = () => {
                       
                       <Link
                         to="/subscription"
-                        className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                         onClick={() => setAccountMenuOpen(false)}
                       >
                         <div className="flex justify-between items-center">
                           <span>Subscription</span>
-                          <span className="ml-2 px-2 py-0.5 bg-primary text-white text-xs rounded-full">
+                          <span className="ml-2 px-2 py-0.5 bg-blue-600 text-white text-xs rounded-full">
                             {subscription.charAt(0).toUpperCase() + subscription.slice(1)}
                           </span>
                         </div>
@@ -256,14 +251,14 @@ const Navbar = () => {
                       
                       <Link
                         to="/settings"
-                        className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                         onClick={() => setAccountMenuOpen(false)}
                       >
                         Settings
                       </Link>
                       
                       <button
-                        className="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                        className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                         onClick={() => {
                           setAccountMenuOpen(false);
                           handleLogout();
@@ -279,33 +274,30 @@ const Navbar = () => {
               <>
                 <Link 
                   to="/features" 
-                  className={`px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700 transition ${
-                    isActive('/features') ? 'bg-gray-700' : ''
+                  className={`px-3 py-2 rounded-md text-sm font-medium text-white hover:bg-blue-500 transition ${
+                    isActive('/features') ? 'bg-blue-700' : ''
                   }`}
                 >
                   Features
                 </Link>
                 <Link 
                   to="/pricing" 
-                  className={`px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700 transition ${
-                    isActive('/pricing') ? 'bg-gray-700' : ''
+                  className={`px-3 py-2 rounded-md text-sm font-medium text-white hover:bg-blue-500 transition ${
+                    isActive('/pricing') ? 'bg-blue-700' : ''
                   }`}
                 >
                   Pricing
                 </Link>
                 
-                {/* Dark Mode Toggle */}
-                <DarkModeToggle />
-                
                 <Link 
                   to="/login" 
-                  className="ml-2 px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700 transition"
+                  className="ml-2 px-3 py-2 rounded-md text-sm font-medium text-white hover:bg-blue-500 transition"
                 >
                   Login
                 </Link>
                 <Link 
                   to="/signup" 
-                  className="ml-2 px-3 py-2 rounded-md text-sm font-medium bg-primary hover:bg-blue-600 transition"
+                  className="ml-2 px-3 py-2 rounded-md text-sm font-medium bg-white text-blue-600 hover:bg-gray-100 transition"
                 >
                   Sign Up
                 </Link>
@@ -323,7 +315,7 @@ const Navbar = () => {
                   <Link 
                     to="/dashboard" 
                     className={`block px-3 py-2 rounded-md text-base font-medium ${
-                      isActive('/dashboard') ? 'bg-gray-700 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'
+                      isActive('/dashboard') ? 'bg-blue-700 text-white' : 'text-white hover:bg-blue-500'
                     }`}
                     onClick={() => setMobileMenuOpen(false)}
                   >
@@ -332,7 +324,7 @@ const Navbar = () => {
                   <Link 
                     to="/analysis" 
                     className={`block px-3 py-2 rounded-md text-base font-medium ${
-                      isActive('/analysis') ? 'bg-gray-700 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'
+                      isActive('/analysis') ? 'bg-blue-700 text-white' : 'text-white hover:bg-blue-500'
                     }`}
                     onClick={() => setMobileMenuOpen(false)}
                   >
@@ -341,7 +333,7 @@ const Navbar = () => {
                   <Link 
                     to="/profile" 
                     className={`block px-3 py-2 rounded-md text-base font-medium ${
-                      isActive('/profile') ? 'bg-gray-700 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'
+                      isActive('/profile') ? 'bg-blue-700 text-white' : 'text-white hover:bg-blue-500'
                     }`}
                     onClick={() => setMobileMenuOpen(false)}
                   >
@@ -350,14 +342,14 @@ const Navbar = () => {
                   <Link 
                     to="/subscription" 
                     className={`block px-3 py-2 rounded-md text-base font-medium ${
-                      isActive('/subscription') ? 'bg-gray-700 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'
+                      isActive('/subscription') ? 'bg-blue-700 text-white' : 'text-white hover:bg-blue-500'
                     }`}
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     Subscription
                   </Link>
                   <button
-                    className="w-full text-left block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+                    className="w-full text-left block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-blue-500"
                     onClick={() => {
                       setMobileMenuOpen(false);
                       handleLogout();
@@ -371,7 +363,7 @@ const Navbar = () => {
                   <Link 
                     to="/features" 
                     className={`block px-3 py-2 rounded-md text-base font-medium ${
-                      isActive('/features') ? 'bg-gray-700 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'
+                      isActive('/features') ? 'bg-blue-700 text-white' : 'text-white hover:bg-blue-500'
                     }`}
                     onClick={() => setMobileMenuOpen(false)}
                   >
@@ -380,7 +372,7 @@ const Navbar = () => {
                   <Link 
                     to="/pricing" 
                     className={`block px-3 py-2 rounded-md text-base font-medium ${
-                      isActive('/pricing') ? 'bg-gray-700 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'
+                      isActive('/pricing') ? 'bg-blue-700 text-white' : 'text-white hover:bg-blue-500'
                     }`}
                     onClick={() => setMobileMenuOpen(false)}
                   >
@@ -389,7 +381,7 @@ const Navbar = () => {
                   <Link 
                     to="/login" 
                     className={`block px-3 py-2 rounded-md text-base font-medium ${
-                      isActive('/login') ? 'bg-gray-700 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'
+                      isActive('/login') ? 'bg-blue-700 text-white' : 'text-white hover:bg-blue-500'
                     }`}
                     onClick={() => setMobileMenuOpen(false)}
                   >
@@ -397,7 +389,7 @@ const Navbar = () => {
                   </Link>
                   <Link 
                     to="/signup" 
-                    className="block px-3 py-2 rounded-md text-base font-medium bg-primary text-white hover:bg-blue-600"
+                    className="block px-3 py-2 rounded-md text-base font-medium bg-white text-blue-600 hover:bg-gray-100"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     Sign Up
