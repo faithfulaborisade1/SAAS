@@ -4,8 +4,8 @@ import { Provider } from 'react-redux';
 import store from './store';
 
 // Context providers
-import { ToastProvider } from './contexts/ToastContext';
-import { ThemeProvider } from './contexts/ThemeContext';
+import { ToastProvider } from './components/contexts/ToastContext';
+import { ThemeProvider } from './components/contexts/ThemeContext';
 
 // Error handling
 import ErrorBoundary from './components/common/ErrorBoundary';
