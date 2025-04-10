@@ -14,7 +14,7 @@ import Button from '../components/common/Button';
 const AnalysisPage = () => {
   const [activeTab, setActiveTab] = useState('url'); // 'url' or 'manual'
   const dispatch = useDispatch();
-  const { resume, jobDescription, analysisResult, loading, error } = useSelector((state) => state.analysis);
+  const { resume, jobDescription, analysisResult, loading, error, analysisCount } = useSelector((state) => state.analysis);
   const { subscription } = useSelector((state) => state.auth);
 
   const handleRunAnalysis = async () => {
